@@ -1,7 +1,7 @@
 package servlet.UserInfo;
 
-import service.transferService.CommonTransfer;
-import service.userService.ServiceUser;
+import service.message.CommonCommunication;
+import service.user.ServiceUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,6 +21,6 @@ public class ServletGetUserInfo extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
-        CommonTransfer.Transfer(response, ServiceUser.getInfo(username));
+        CommonCommunication.Transfer(response, ServiceUser.getInfo(username));
     }
 }

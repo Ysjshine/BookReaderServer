@@ -1,7 +1,7 @@
 package servlet.Manager;
 
-import service.beanService.ServiceCategory;
-import service.transferService.CommonTransfer;
+import service.bean.ManagerCategory;
+import service.message.CommonCommunication;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +23,7 @@ public class ServletAddCategory extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String categoryName = request.getParameter("categoryName");
         int uid = Integer.parseInt(request.getParameter("uid"));
-        boolean ans = ServiceCategory.addCategory(uid, categoryName);
-        CommonTransfer.sendMessage(response, ans);
+        boolean ans = ManagerCategory.addCategory(uid, categoryName);
+        CommonCommunication.sendMessage(response, ans);
     }
 }

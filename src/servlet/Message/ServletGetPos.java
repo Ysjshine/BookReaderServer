@@ -1,20 +1,25 @@
-package servlet.Manager;
+package servlet.Message;
 
-import service.bean.ManagerComment;
-import service.message.CommonCommunication;
+import service.message.ServiceTransPos;
+import service.other.ManagerPos;
+import service.other.ServiceEpub;
+import service.utils.PosBean;
+import service.utils.UtilsBook;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
+import java.util.List;
 
 /**
- * Created by dream on 17-5-20.
+ * Created by dream on 17-5-28.
  */
-@WebServlet(name = "ServletAddComment", urlPatterns = "/AddComment")
-public class ServletAddComment extends HttpServlet {
+@WebServlet(name = "ServletGetPos", urlPatterns = "/QueryPos")
+public class ServletGetPos extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
@@ -23,8 +28,8 @@ public class ServletAddComment extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int uid = Integer.parseInt(request.getParameter("uid"));
         int bid = Integer.parseInt(request.getParameter("bid"));
-        String contents = request.getParameter("contents");
-        boolean ans = ManagerComment.addComment(bid, uid, contents);
-        CommonCommunication.sendMessage(response, ans);
+        List<PosBean> posBeans = ManagerPos.queryPos(uid, bid);
+        File file = new File(getServletContext().getInitParameter("resourceRoot"), UtilsBook.fillFileSrc(bid)[0]);
+        ServiceTransPos.Transfer(response, posBeans, ServiceEpub.getChapter(file));
     }
 }

@@ -1,29 +1,30 @@
-package servlet.UserInfo;
+package servlet.File;
 
-import service.message.CommonCommunication;
-import service.user.ServiceUser;
+import service.file.ServiceDownload;
+import service.utils.UtilsTopImg;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by dream on 17-5-1.
+ * Created by dream on 17-5-25.
  */
-@WebServlet(name = "ServletLogin", urlPatterns = "/Login")
-public class ServletLogin extends HttpServlet {
+@WebServlet(name = "ServletDownloadTopImage", urlPatterns = "/TopImage")
+public class ServletDownloadTopImage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String account = request.getParameter("username");
-        String password = request.getParameter("password");
-        boolean ans = ServiceUser.login(account, password);
-        CommonCommunication.sendMessage(response, ans);
+        String id = request.getParameter("id");
+        File src = new File(getServletContext().getInitParameter("resourceRoot"), UtilsTopImg.fillTopTemplate(id));
+        String contentType = getServletContext().getMimeType(src.getAbsolutePath());
+        ServiceDownload.downloadFile(response, src, contentType);
     }
 }

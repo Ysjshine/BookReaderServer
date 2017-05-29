@@ -1,7 +1,7 @@
-package servlet.UserInfo;
+package servlet.Message;
 
 import service.message.CommonCommunication;
-import service.user.ServiceUser;
+import service.utils.UtilsTopImg;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by dream on 17-5-1.
+ * Created by dream on 17-5-25.
  */
-@WebServlet(name = "ServletLogin", urlPatterns = "/Login")
-public class ServletLogin extends HttpServlet {
+@WebServlet(name = "ServletGetTopBookSrc", urlPatterns = "/GetTopBookSrc")
+public class ServletGetTopBookSrc extends HttpServlet {
+    private static final String[] tops = {"a", "b", "c"};
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String account = request.getParameter("username");
-        String password = request.getParameter("password");
-        boolean ans = ServiceUser.login(account, password);
-        CommonCommunication.sendMessage(response, ans);
+        String[] files = UtilsTopImg.changeDownloadSrc(tops, getServletContext().getInitParameter("serverRoot"));
+        CommonCommunication.sendMessage(response, files);
     }
 }

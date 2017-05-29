@@ -1,7 +1,7 @@
 package servlet.Manager;
 
-import service.beanService.ServiceCategory;
-import service.transferService.CommonTransfer;
+import service.bean.ManagerCategory;
+import service.message.CommonCommunication;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +23,7 @@ public class ServletDelCategory extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int uid = Integer.parseInt(request.getParameter("uid"));
         int cid = Integer.parseInt(request.getParameter("cid"));
-        boolean ans = ServiceCategory.delCategory(uid, cid);
-        CommonTransfer.sendMessage(response, ans);
+        boolean ans = ManagerCategory.delCategory(uid, cid);
+        CommonCommunication.sendMessage(response, ans);
     }
 }
