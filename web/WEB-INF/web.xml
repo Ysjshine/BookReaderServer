@@ -5,8 +5,8 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <context-param>
         <param-name>resourceRoot</param-name>
-        <!--<param-value>/home/ftpuser/Store/BookReader</param-value>-->
-        <param-value>/home/dream</param-value>
+        <param-value>/home/ftpuser/Store/BookReader</param-value>
+        <!--<param-value>/home/dream</param-value>-->
     </context-param>
     <context-param>
         <param-name>serverRoot</param-name>
