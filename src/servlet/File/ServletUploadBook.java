@@ -39,7 +39,5 @@ public class ServletUploadBook extends HttpServlet {
 
         boolean ans = ServiceUploadBook.uploadBook(request, resRoot);
         request.getSession().setAttribute("UPLOAD", ans);
-
-        response.sendRedirect("details");
     }
 }
