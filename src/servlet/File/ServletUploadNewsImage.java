@@ -1,22 +1,21 @@
 package servlet.File;
 
+import service.file.ServiceUploadImage;
 import service.message.CommonCommunication;
-import service.other.ServiceEpub;
-import service.utils.UtilsBook;
+import service.utils.InfoNewsImage;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
 import java.io.IOException;
 
 /**
  * Created by dream on 17-5-29.
  */
-@WebServlet(name = "ServletDownloadChapter", urlPatterns = "/DownloadChapter")
-public class ServletDownloadChapter extends HttpServlet {
+@WebServlet(name = "ServletUploadNewsImage", urlPatterns = "/UploadNewsImage")
+public class ServletUploadNewsImage extends HttpServlet {
     private static String resourceRoot;
 
     @Override
@@ -31,10 +30,7 @@ public class ServletDownloadChapter extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        int bid = Integer.parseInt(request.getParameter("bid"));
-        int chapter = Integer.parseInt(request.getParameter("chapter"));
-        File fileSrc = UtilsBook.getRealSrc(resourceRoot, bid, 0);
-        String contents = ServiceEpub.getContents(fileSrc, chapter);
-        CommonCommunication.sendMessage(response, contents);
+        boolean ans = ServiceUploadImage.uploadImage(request, resourceRoot, InfoNewsImage.template, InfoNewsImage.values);
+        CommonCommunication.sendMessage(response, ans);
     }
 }

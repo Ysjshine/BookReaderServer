@@ -1,7 +1,8 @@
 package servlet.File;
 
 import service.file.ServiceDownload;
-import service.utils.UtilsTopImg;
+import service.utils.InfoTopImage;
+import utils.UploadUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +17,14 @@ import java.io.IOException;
  */
 @WebServlet(name = "ServletDownloadTopImage", urlPatterns = "/TopImage")
 public class ServletDownloadTopImage extends HttpServlet {
+    private static String resourceRoot;
+
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        resourceRoot = getServletContext().getInitParameter("resourceRoot");
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
@@ -23,7 +32,7 @@ public class ServletDownloadTopImage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
-        File file = UtilsTopImg.getRealSrc(getServletContext().getInitParameter("resourceRoot"), id);
+        File file = UploadUtils.getRealSrc(resourceRoot, InfoTopImage.template, id);
         String contentType = getServletContext().getMimeType(file.getAbsolutePath());
         ServiceDownload.downloadFile(response, file, contentType);
     }

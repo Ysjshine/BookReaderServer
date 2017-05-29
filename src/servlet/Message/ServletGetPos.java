@@ -29,7 +29,7 @@ public class ServletGetPos extends HttpServlet {
         int uid = Integer.parseInt(request.getParameter("uid"));
         int bid = Integer.parseInt(request.getParameter("bid"));
         List<PosBean> posBeans = ManagerPos.queryPos(uid, bid);
-        File file = new File(getServletContext().getInitParameter("resourceRoot"), UtilsBook.fillFileSrc(bid)[0]);
+        File file = UtilsBook.getRealSrc(getServletContext().getInitParameter("resourceRoot"), bid, 0);
         SendPos.send(response, posBeans, ServiceEpub.getChapter(file));
     }
 }

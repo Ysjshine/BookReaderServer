@@ -26,7 +26,7 @@ public class ServletQueryBookByName extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String bookName = request.getParameter("bookName");
         List<BookBean> bookBeans = ManagerBook.queryBookByName(bookName);
-        UtilsBook.changeDownloadUri(bookBeans, getServletContext().getInitParameter("serverRoot"));
+        UtilsBook.getDownloadSrc(getServletContext().getInitParameter("serverRoot"), bookBeans);
         CommonCommunication.Transfer(response, bookBeans, BookBean.class);
     }
 }

@@ -18,7 +18,7 @@ public class SQLUtils {
     private static final String serverName = "localhost";
     private static final String dbName = "BookReaderServer";
     private static final String userName = "root";
-    private static final String password = "000";
+    private static final String password = "Simple";
     private static final String autoReconnect = "true";
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final int portNumber = 3306;

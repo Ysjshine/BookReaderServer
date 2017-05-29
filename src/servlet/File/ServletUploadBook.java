@@ -15,13 +15,14 @@ import java.io.IOException;
  */
 @WebServlet(name = "ServletUploadBook", urlPatterns = "/UploadBook")
 public class ServletUploadBook extends HttpServlet {
-    private static String resRoot;
+    private static String resourceRoot;
 
     @Override
-    public void init() {
-        resRoot = getServletContext().getInitParameter("resourceRoot");
-        File books = new File(resRoot, "books");
-        File images = new File(resRoot, "images");
+    public void init() throws ServletException {
+        super.init();
+        resourceRoot = getServletContext().getInitParameter("resourceRoot");
+        File books = new File(resourceRoot, "books");
+        File images = new File(resourceRoot, "images");
         if (!books.exists()) {
             books.mkdir();
         }
@@ -37,7 +38,8 @@ public class ServletUploadBook extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
 
-        boolean ans = ServiceUploadBook.uploadBook(request, resRoot);
+        boolean ans = ServiceUploadBook.uploadBook(request, resourceRoot);
         request.getSession().setAttribute("UPLOAD", ans);
+        response.sendRedirect("Upload.jsp");
     }
 }

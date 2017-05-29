@@ -25,7 +25,7 @@ public class ServletQueryBookByTop extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         List<BookBean> books = ManagerBook.queryBookByTop();
-        UtilsBook.changeDownloadUri(books, getServletContext().getInitParameter("serverRoot"));
+        UtilsBook.getDownloadSrc(getServletContext().getInitParameter("serverRoot"), books);
         CommonCommunication.Transfer(response, books, BookBean.class);
     }
 }

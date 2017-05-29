@@ -1,7 +1,8 @@
 package servlet.Message;
 
 import service.message.CommonCommunication;
-import service.utils.UtilsNewsImg;
+import service.utils.InfoNewsImage;
+import utils.UploadUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,7 +22,7 @@ public class ServletGetNewsImageSrc extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String[] files = UtilsNewsImg.getDownloadSrc(getServletContext().getInitParameter("serverRoot"));
+        String[] files = UploadUtils.getDownloadURI(getServletContext().getInitParameter("serverRoot"), InfoNewsImage.URIPattern, InfoNewsImage.values);
         CommonCommunication.sendMessage(response, files);
     }
 }

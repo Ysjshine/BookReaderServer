@@ -23,10 +23,11 @@ public class ServletQueryCategoryBook extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         int uid = Integer.parseInt(request.getParameter("uid"));
         int cid = Integer.parseInt(request.getParameter("cid"));
         List<BookBean> bookBeans = ManagerCategoryBook.queryCategoryBook(uid, cid);
-        UtilsBook.changeDownloadUri(bookBeans, getServletContext().getInitParameter("serverRoot"));
+        UtilsBook.getDownloadSrc(getServletContext().getInitParameter("serverRoot"), bookBeans);
         CommonCommunication.Transfer(response, bookBeans, BookBean.class);
     }
 }

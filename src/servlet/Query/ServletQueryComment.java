@@ -22,6 +22,7 @@ public class ServletQueryComment extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding("UTF-8");
         int bid = Integer.parseInt(request.getParameter("bid"));
         List<CommentBean> beans = ManagerComment.queryComment(bid);
         CommonCommunication.Transfer(response, beans, CommentBean.class);

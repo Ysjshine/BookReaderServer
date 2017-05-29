@@ -16,11 +16,12 @@ import java.io.IOException;
  */
 @WebServlet(name = "ServletDownloadImage", urlPatterns = "/Image")
 public class ServletDownloadImage extends HttpServlet {
-    private File resRoot;
+    private static String resourceRoot;
 
     @Override
-    public void init() {
-        resRoot = new File(getServletContext().getInitParameter("resourceRoot"));
+    public void init() throws ServletException {
+        super.init();
+        resourceRoot = getServletContext().getInitParameter("resourceRoot");
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -30,7 +31,7 @@ public class ServletDownloadImage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         int id = Integer.parseInt(request.getParameter("id"));
-        File fileSrc = new File(resRoot, UtilsBook.fillFileSrc(id)[1]);
+        File fileSrc = UtilsBook.getRealSrc(resourceRoot, id, 1);
         String contentType = getServletContext().getMimeType(fileSrc.getAbsolutePath());
         ServiceDownload.downloadFile(response, fileSrc, contentType);
     }

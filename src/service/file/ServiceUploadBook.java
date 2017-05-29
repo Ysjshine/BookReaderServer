@@ -25,7 +25,7 @@ public class ServiceUploadBook {
             FileItem[] bookFileItems = setInfo(request, resRoot, book);
             if (bookFileItems[0] != null && bookFileItems[1] != null) {
                 BookDAO.getInstance().insertBeanToDB(book);
-                String[] trueSources = UtilsBook.fillFileSrc(book.BookID);
+                String[] trueSources = UtilsBook.getRealSrc(book.BookID);
                 bookFileItems[0].write(new File(resRoot, trueSources[0]));
                 bookFileItems[1].write(new File(resRoot, trueSources[1]));
                 ans = true;
@@ -52,6 +52,10 @@ public class ServiceUploadBook {
             if (item.isFormField()) {
                 // String name = item.getFieldName();
                 // String value = item.getString();
+                // getFieldName()
+                // Returns the name of the field in the multipart form corresponding to this file item.
+                // getName()
+                // Returns the original filename in the client's filesystem, as provided by the browser (or other client software).
                 if (item.getFieldName().equals("Author")) {
                     book.author = item.getString("UTF-8");
                     continue;

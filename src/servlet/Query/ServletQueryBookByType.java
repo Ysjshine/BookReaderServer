@@ -26,7 +26,7 @@ public class ServletQueryBookByType extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int type = Integer.parseInt(request.getParameter("type"));
         List<BookBean> books = ManagerBook.queryBookByType(type);
-        UtilsBook.changeDownloadUri(books, getServletContext().getInitParameter("serverRoot"));
+        UtilsBook.getDownloadSrc(getServletContext().getInitParameter("serverRoot"), books);
         CommonCommunication.Transfer(response, books, BookBean.class);
     }
 }
