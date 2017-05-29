@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * Created by dream on 17-5-25.
  */
-@WebServlet(name = "ServletGetTopImageSrc", urlPatterns = "/GetTopBookSrc")
+@WebServlet(name = "ServletGetTopImageSrc", urlPatterns = "/GetTopImageSrc")
 public class ServletGetTopImageSrc extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);

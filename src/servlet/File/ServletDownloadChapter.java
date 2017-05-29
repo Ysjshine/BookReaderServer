@@ -15,7 +15,7 @@ import java.io.IOException;
 /**
  * Created by dream on 17-5-29.
  */
-@WebServlet(name = "ServletDownloadChapter", urlPatterns = "/DownloadChapter")
+@WebServlet(name = "ServletDownloadChapter", urlPatterns = "/Chapter")
 public class ServletDownloadChapter extends HttpServlet {
     private static String resourceRoot;
 

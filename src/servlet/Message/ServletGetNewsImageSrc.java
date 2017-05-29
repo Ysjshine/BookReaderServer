@@ -14,7 +14,7 @@ import java.io.IOException;
 /**
  * Created by dream on 17-5-29.
  */
-@WebServlet(name = "ServletGetNewsImageSrc")
+@WebServlet(name = "ServletGetNewsImageSrc", urlPatterns = "/GetNewsImageSrc")
 public class ServletGetNewsImageSrc extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);

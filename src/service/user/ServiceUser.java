@@ -53,7 +53,7 @@ public class ServiceUser {
             UserCategory userCategory = new UserCategory();
             userCategory.UserID = userBean.UserID;
             userCategory.CategoryID = 1;
-            userCategory.CategoryName = "默认";
+            userCategory.CategoryName = "我最喜欢的书籍";
             userCategoryDAO.insertBeanToDB(userCategory);
             return true;
         } catch (SQLException e) {

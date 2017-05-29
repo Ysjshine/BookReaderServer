@@ -13,7 +13,7 @@ import java.io.IOException;
 /**
  * Created by dream on 17-5-21.
  */
-@WebServlet(name = "ServletDelComment", urlPatterns = "/DeleteComment")
+@WebServlet(name = "ServletDelComment", urlPatterns = "/DelComment")
 public class ServletDelComment extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
