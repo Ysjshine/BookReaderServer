@@ -15,7 +15,6 @@ import java.io.IOException;
  */
 @WebServlet(name = "ServletGetTopImageSrc", urlPatterns = "/GetTopBookSrc")
 public class ServletGetTopImageSrc extends HttpServlet {
-
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
