@@ -12,8 +12,8 @@ import java.util.List;
 /**
  * Created by dream on 17-5-28.
  */
-public class ServiceTransPos {
-    public static void Transfer(HttpServletResponse response, @Nullable List<PosBean> beans, Integer size) throws IOException {
+public class SendPos {
+    public static void send(HttpServletResponse response, @Nullable List<PosBean> beans, Integer size) throws IOException {
         response.setContentType("application/octet-stream");
         OutputStream outputStream = response.getOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(outputStream);

@@ -1,6 +1,6 @@
 package servlet.Message;
 
-import service.message.ServiceTransPos;
+import service.message.SendPos;
 import service.other.ManagerPos;
 import service.other.ServiceEpub;
 import service.utils.PosBean;
@@ -30,6 +30,6 @@ public class ServletGetPos extends HttpServlet {
         int bid = Integer.parseInt(request.getParameter("bid"));
         List<PosBean> posBeans = ManagerPos.queryPos(uid, bid);
         File file = new File(getServletContext().getInitParameter("resourceRoot"), UtilsBook.fillFileSrc(bid)[0]);
-        ServiceTransPos.Transfer(response, posBeans, ServiceEpub.getChapter(file));
+        SendPos.send(response, posBeans, ServiceEpub.getChapter(file));
     }
 }

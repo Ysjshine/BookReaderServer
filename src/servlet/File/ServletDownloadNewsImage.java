@@ -1,7 +1,7 @@
 package servlet.File;
 
 import service.file.ServiceDownload;
-import service.utils.UtilsTopImg;
+import service.utils.UtilsNewsImg;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -12,10 +12,10 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Created by dream on 17-5-25.
+ * Created by dream on 17-5-29.
  */
-@WebServlet(name = "ServletDownloadTopImage", urlPatterns = "/TopImage")
-public class ServletDownloadTopImage extends HttpServlet {
+@WebServlet(name = "ServletDownloadNewsImage", urlPatterns = "/NewsImage")
+public class ServletDownloadNewsImage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }
@@ -23,7 +23,7 @@ public class ServletDownloadTopImage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
-        File file = new File(getServletContext().getInitParameter("resourceRoot"), UtilsTopImg.fillTopTemplate(id));
+        File file = new File(getServletContext().getInitParameter("resourceRoot"), UtilsNewsImg.fillNewsTemplate(id));
         String contentType = getServletContext().getMimeType(file.getAbsolutePath());
         ServiceDownload.downloadFile(response, file, contentType);
     }

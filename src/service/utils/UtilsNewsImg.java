@@ -8,12 +8,13 @@ import org.jetbrains.annotations.NotNull;
 public class UtilsNewsImg {
     @NotNull
     private static final String topTemplate = "news/*.jpg";
+    private static final String[] tops = {"a", "b", "c"};
 
-    public static String fillTopTemplate(@NotNull String id) {
+    public static String fillNewsTemplate(@NotNull String id) {
         return topTemplate.replace("*", id);
     }
 
-    public static String[] changeDownloadSrc(String[] tops, String prefix) {
+    public static String[] changeDownloadSrc(String prefix) {
         if (tops != null) {
             String[] ans = tops.clone();
             int length = ans.length;
