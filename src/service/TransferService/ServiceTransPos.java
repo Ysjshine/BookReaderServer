@@ -18,14 +18,13 @@ public class ServiceTransPos {
         OutputStream outputStream = response.getOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(outputStream);
         if (beans == null || beans.size() == 0) {
-            oos.writeObject(0);
-            oos.writeObject(0);
-            oos.writeObject(-1);
+            oos.writeObject(2);
+            oos.writeObject(1);
         } else {
             oos.writeObject(beans.get(0).chapter);
             oos.writeObject(beans.get(0).page);
-            oos.writeObject(size);
         }
+        oos.writeObject(size);
         oos.writeObject(null);
         outputStream.close();
     }
