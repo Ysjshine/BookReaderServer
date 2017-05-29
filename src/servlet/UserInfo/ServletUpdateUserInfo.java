@@ -1,6 +1,6 @@
 package servlet.UserInfo;
 
-import service.UserService.ServiceUser;
+import service.userService.ServiceUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

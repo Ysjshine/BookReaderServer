@@ -1,7 +1,7 @@
 package servlet.Manager;
 
-import service.BeanService.ServiceComment;
-import service.TransferService.TransferCommonBean;
+import service.beanService.ServiceComment;
+import service.transferService.CommonTransfer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +25,6 @@ public class ServletAddComment extends HttpServlet {
         int bid = Integer.parseInt(request.getParameter("bid"));
         String contents = request.getParameter("contents");
         boolean ans = ServiceComment.addComment(bid, uid, contents);
-        TransferCommonBean.sendMessage(response, ans);
+        CommonTransfer.sendMessage(response, ans);
     }
 }

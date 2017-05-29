@@ -1,7 +1,7 @@
 package servlet.Transfer;
 
-import service.OtherService.UtilsBook;
-import service.TransferService.ServiceDownload;
+import service.transferService.ServiceDownload;
+import service.utils.UtilsBook;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

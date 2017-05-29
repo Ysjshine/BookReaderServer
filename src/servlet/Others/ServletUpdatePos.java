@@ -1,7 +1,7 @@
 package servlet.Others;
 
-import service.OtherService.ServicePos;
-import service.TransferService.TransferCommonBean;
+import service.otherService.ServicePos;
+import service.transferService.CommonTransfer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +26,6 @@ public class ServletUpdatePos extends HttpServlet {
         int chapter = Integer.parseInt(request.getParameter("chapter"));
         int page = Integer.parseInt(request.getParameter("page"));
         boolean ans = ServicePos.updatePos(uid, bid, chapter, page);
-        TransferCommonBean.sendMessage(response, ans);
+        CommonTransfer.sendMessage(response, ans);
     }
 }

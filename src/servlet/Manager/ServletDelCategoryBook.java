@@ -1,7 +1,7 @@
 package servlet.Manager;
 
-import service.BeanService.ServiceCategoryBook;
-import service.TransferService.TransferCommonBean;
+import service.beanService.ServiceCategoryBook;
+import service.transferService.CommonTransfer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +25,6 @@ public class ServletDelCategoryBook extends HttpServlet {
         int cid = Integer.parseInt(request.getParameter("cid"));
         int bid = Integer.parseInt(request.getParameter("bid"));
         boolean ans = ServiceCategoryBook.delCategoryBook(uid, cid, bid);
-        TransferCommonBean.sendMessage(response, ans);
+        CommonTransfer.sendMessage(response, ans);
     }
 }

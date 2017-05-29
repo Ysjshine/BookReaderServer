@@ -1,7 +1,7 @@
 package servlet.Others;
 
-import service.OtherService.UtilsTopImg;
-import service.TransferService.TransferCommonBean;
+import service.transferService.CommonTransfer;
+import service.utils.UtilsTopImg;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +24,6 @@ public class ServletGetTopBookSrc extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String[] files = UtilsTopImg.changeDownloadSrc(tops, getServletContext().getInitParameter("serverRoot"));
-        TransferCommonBean.sendMessage(response, files);
+        CommonTransfer.sendMessage(response, files);
     }
 }

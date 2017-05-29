@@ -1,4 +1,4 @@
-package service.OtherService;
+package service.otherService;
 
 /**
  * Created by dream on 17-5-28.

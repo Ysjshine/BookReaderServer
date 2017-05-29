@@ -1,4 +1,4 @@
-package service.OtherService;
+package service.otherService;
 
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Resource;

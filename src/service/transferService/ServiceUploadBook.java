@@ -1,4 +1,4 @@
-package service.TransferService;
+package service.transferService;
 
 import DAO.BookDAO;
 import bean.BookBean;
@@ -6,7 +6,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import service.OtherService.UtilsBook;
+import service.utils.UtilsBook;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;

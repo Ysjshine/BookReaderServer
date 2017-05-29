@@ -1,7 +1,7 @@
 package servlet.Manager;
 
-import service.BeanService.ServiceComment;
-import service.TransferService.TransferCommonBean;
+import service.beanService.ServiceComment;
+import service.transferService.CommonTransfer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,6 +23,6 @@ public class ServletDelComment extends HttpServlet {
         int coid = Integer.parseInt(request.getParameter("coid"));
         int uid = Integer.parseInt(request.getParameter("uid"));
         boolean ans = ServiceComment.delComment(coid, uid);
-        TransferCommonBean.sendMessage(response, ans);
+        CommonTransfer.sendMessage(response, ans);
     }
 }

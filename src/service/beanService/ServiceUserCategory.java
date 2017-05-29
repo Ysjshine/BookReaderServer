@@ -1,8 +1,8 @@
-package service.BeanService;
+package service.beanService;
 
 import bean.UserBean;
 import bean.UserCategory;
-import service.UserService.ServiceUser;
+import service.userService.ServiceUser;
 import utils.SQLUtils;
 
 import java.sql.PreparedStatement;

@@ -1,7 +1,7 @@
-package service.TransferService;
+package service.transferService;
 
 import org.jetbrains.annotations.Nullable;
-import service.OtherService.PosBean;
+import service.otherService.PosBean;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;

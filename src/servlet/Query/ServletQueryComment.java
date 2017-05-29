@@ -1,8 +1,8 @@
 package servlet.Query;
 
 import bean.CommentBean;
-import service.BeanService.ServiceComment;
-import service.TransferService.TransferCommonBean;
+import service.beanService.ServiceComment;
+import service.transferService.CommonTransfer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +24,6 @@ public class ServletQueryComment extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int bid = Integer.parseInt(request.getParameter("bid"));
         List<CommentBean> beans = ServiceComment.queryComment(bid);
-        TransferCommonBean.Transfer(response, beans, CommentBean.class);
+        CommonTransfer.Transfer(response, beans, CommentBean.class);
     }
 }

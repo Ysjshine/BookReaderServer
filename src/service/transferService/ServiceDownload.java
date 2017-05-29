@@ -1,4 +1,4 @@
-package service.TransferService;
+package service.transferService;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;

@@ -1,7 +1,7 @@
 package servlet.UserInfo;
 
-import service.TransferService.TransferCommonBean;
-import service.UserService.ServiceUser;
+import service.transferService.CommonTransfer;
+import service.userService.ServiceUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -24,6 +24,6 @@ public class ServletLogin extends HttpServlet {
         String account = request.getParameter("username");
         String password = request.getParameter("password");
         boolean ans = ServiceUser.login(account, password);
-        TransferCommonBean.sendMessage(response, ans);
+        CommonTransfer.sendMessage(response, ans);
     }
 }

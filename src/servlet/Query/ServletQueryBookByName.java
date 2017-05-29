@@ -1,9 +1,9 @@
 package servlet.Query;
 
 import bean.BookBean;
-import service.BeanService.ServiceBook;
-import service.OtherService.UtilsBook;
-import service.TransferService.TransferCommonBean;
+import service.beanService.ServiceBook;
+import service.transferService.CommonTransfer;
+import service.utils.UtilsBook;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +27,6 @@ public class ServletQueryBookByName extends HttpServlet {
         String bookName = request.getParameter("bookName");
         List<BookBean> bookBeans = ServiceBook.queryBookByName(bookName);
         UtilsBook.changeDownloadUri(bookBeans, getServletContext().getInitParameter("serverRoot"));
-        TransferCommonBean.Transfer(response, bookBeans, BookBean.class);
+        CommonTransfer.Transfer(response, bookBeans, BookBean.class);
     }
 }

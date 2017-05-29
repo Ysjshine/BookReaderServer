@@ -1,10 +1,10 @@
-package service.TransferService;
+package service.transferService;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import service.OtherService.UtilsTopImg;
+import service.utils.UtilsTopImg;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;

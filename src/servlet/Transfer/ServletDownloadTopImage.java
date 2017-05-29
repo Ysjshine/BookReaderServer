@@ -1,7 +1,7 @@
 package servlet.Transfer;
 
-import service.OtherService.UtilsTopImg;
-import service.TransferService.ServiceDownload;
+import service.transferService.ServiceDownload;
+import service.utils.UtilsTopImg;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,8 +14,8 @@ import java.io.IOException;
 /**
  * Created by dream on 17-5-25.
  */
-@WebServlet(name = "ServletDownloadTopBook", urlPatterns = "/TopBook")
-public class ServletDownloadTopBook extends HttpServlet {
+@WebServlet(name = "ServletDownloadTopImage", urlPatterns = "/TopImage")
+public class ServletDownloadTopImage extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         doGet(request, response);
     }

@@ -1,4 +1,4 @@
-package service.OtherService;
+package service.otherService;
 
 import org.jetbrains.annotations.Nullable;
 import utils.SQLUtils;

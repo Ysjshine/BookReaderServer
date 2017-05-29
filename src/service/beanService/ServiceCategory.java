@@ -1,4 +1,4 @@
-package service.BeanService;
+package service.beanService;
 
 import DAO.UserCategoryDAO;
 import bean.UserCategory;

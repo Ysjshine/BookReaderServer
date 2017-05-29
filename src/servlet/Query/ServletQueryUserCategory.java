@@ -1,8 +1,8 @@
 package servlet.Query;
 
 import bean.UserCategory;
-import service.BeanService.ServiceUserCategory;
-import service.TransferService.TransferCommonBean;
+import service.beanService.ServiceUserCategory;
+import service.transferService.CommonTransfer;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +23,7 @@ public class ServletQueryUserCategory extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String username = request.getParameter("username");
         try {
-            TransferCommonBean.Transfer(response, ServiceUserCategory.queryUserCategory(username), UserCategory.class);
+            CommonTransfer.Transfer(response, ServiceUserCategory.queryUserCategory(username), UserCategory.class);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }

@@ -1,4 +1,4 @@
-package service.TransferService;
+package service.transferService;
 
 import bean.CommonBean;
 
@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * Created by dream on 17-5-12.
  */
-public class TransferCommonBean {
+public class CommonTransfer {
     public static void Transfer(HttpServletResponse response, List<? extends CommonBean> beans, Class clazz) throws IOException {
         response.setContentType("application/octet-stream");
         OutputStream outputStream = response.getOutputStream();

@@ -1,9 +1,9 @@
 package servlet.Query;
 
 import bean.BookBean;
-import service.BeanService.ServiceBook;
-import service.OtherService.UtilsBook;
-import service.TransferService.TransferCommonBean;
+import service.beanService.ServiceBook;
+import service.transferService.CommonTransfer;
+import service.utils.UtilsBook;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +26,6 @@ public class ServletQueryBookByTop extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         List<BookBean> books = ServiceBook.queryBookByTop();
         UtilsBook.changeDownloadUri(books, getServletContext().getInitParameter("serverRoot"));
-        TransferCommonBean.Transfer(response, books, BookBean.class);
+        CommonTransfer.Transfer(response, books, BookBean.class);
     }
 }

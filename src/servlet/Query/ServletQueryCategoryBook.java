@@ -1,9 +1,9 @@
 package servlet.Query;
 
 import bean.BookBean;
-import service.BeanService.ServiceCategoryBook;
-import service.OtherService.UtilsBook;
-import service.TransferService.TransferCommonBean;
+import service.beanService.ServiceCategoryBook;
+import service.transferService.CommonTransfer;
+import service.utils.UtilsBook;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,6 +27,6 @@ public class ServletQueryCategoryBook extends HttpServlet {
         int cid = Integer.parseInt(request.getParameter("cid"));
         List<BookBean> bookBeans = ServiceCategoryBook.queryCategoryBook(uid, cid);
         UtilsBook.changeDownloadUri(bookBeans, getServletContext().getInitParameter("serverRoot"));
-        TransferCommonBean.Transfer(response, bookBeans, BookBean.class);
+        CommonTransfer.Transfer(response, bookBeans, BookBean.class);
     }
 }

@@ -1,8 +1,8 @@
 package servlet.Transfer;
 
-import service.OtherService.ConvertService;
-import service.OtherService.UtilsBook;
-import service.TransferService.TransferCommonBean;
+import service.otherService.ConvertService;
+import service.transferService.CommonTransfer;
+import service.utils.UtilsBook;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -34,6 +34,6 @@ public class ServletDownloadChapter extends HttpServlet {
         int chapter = Integer.parseInt(request.getParameter("chapter"));
         File fileSrc = new File(resRoot, UtilsBook.fillFileSrc(bid)[0]);
         String contents = ConvertService.getContents(fileSrc, chapter);
-        TransferCommonBean.sendMessage(response, contents);
+        CommonTransfer.sendMessage(response, contents);
     }
 }

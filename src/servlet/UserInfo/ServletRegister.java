@@ -1,7 +1,7 @@
 package servlet.UserInfo;
 
-import service.TransferService.TransferCommonBean;
-import service.UserService.ServiceUser;
+import service.transferService.CommonTransfer;
+import service.userService.ServiceUser;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +25,6 @@ public class ServletRegister extends HttpServlet {
         String password = request.getParameter("password");
         String gender = request.getParameter("gender");
         boolean ans = ServiceUser.register(account, password, gender);
-        TransferCommonBean.sendMessage(response, ans);
+        CommonTransfer.sendMessage(response, ans);
     }
 }

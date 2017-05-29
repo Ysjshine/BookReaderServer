@@ -1,4 +1,4 @@
-package service.UserService;
+package service.userService;
 
 import DAO.UserCategoryDAO;
 import DAO.UserDAO;

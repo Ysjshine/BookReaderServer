@@ -1,10 +1,10 @@
 package servlet.Others;
 
-import service.OtherService.ConvertService;
-import service.OtherService.PosBean;
-import service.OtherService.ServicePos;
-import service.OtherService.UtilsBook;
-import service.TransferService.ServiceTransPos;
+import service.otherService.ConvertService;
+import service.otherService.PosBean;
+import service.otherService.ServicePos;
+import service.transferService.ServiceTransPos;
+import service.utils.UtilsBook;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -29,7 +29,7 @@ public class ServletQueryPos extends HttpServlet {
         int uid = Integer.parseInt(request.getParameter("uid"));
         int bid = Integer.parseInt(request.getParameter("bid"));
         List<PosBean> posBeans = ServicePos.queryPos(uid, bid);
-        File file = new File(UtilsBook.fillFileSrc(bid)[0]);
+        File file = new File(getServletContext().getInitParameter("resourceRoot"), UtilsBook.fillFileSrc(bid)[0]);
         ServiceTransPos.Transfer(response, posBeans, ConvertService.getChapter(file));
     }
 }
