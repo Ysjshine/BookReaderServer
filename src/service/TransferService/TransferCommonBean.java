@@ -47,6 +47,13 @@ public class TransferCommonBean {
         outputStream.close();
     }
 
+    public static void sendMessage(HttpServletResponse response, String str) throws IOException {
+        response.setContentType("application/octet-stream");
+        OutputStream outputStream = response.getOutputStream();
+        outputStream.write(str.getBytes());
+        outputStream.close();
+    }
+
     public static void sendMessage(HttpServletResponse response, String[] strings) throws IOException {
         response.setContentType("application/octet-stream");
         OutputStream outputStream = response.getOutputStream();

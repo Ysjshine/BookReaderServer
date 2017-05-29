@@ -11,6 +11,8 @@
           <element id="file-copy" path="$USER_HOME$/Program/jars/commons-fileupload-1.3.2.jar" />
           <element id="file-copy" path="$USER_HOME$/Program/jars/commons-io-2.5.jar" />
           <element id="file-copy" path="$PROJECT_DIR$/lib/annotations-java8.jar" />
+          <element id="file-copy" path="$USER_HOME$/Documents/Tencent Files/1871032448/FileRecv/epublib-core-latest.jar" />
+          <element id="file-copy" path="$USER_HOME$/Documents/Tencent Files/1871032448/FileRecv/slf4j-android-1.6.1-RC1.jar" />
         </element>
       </element>
       <element id="javaee-facet-resources" facet="BookReaderServer/web/Web" />
