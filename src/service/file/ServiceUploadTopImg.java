@@ -22,7 +22,7 @@ public class ServiceUploadTopImg {
             FileItem[] fileItems = getItems(request, resRoot);
             for (int i = 0; i <= 2; i++) {
                 if (fileItems[i] != null) {
-                    File temp = new File(resRoot, UtilsTopImg.fillTopTemplate(names[i]));
+                    File temp = UtilsTopImg.getRealSrc(resRoot, names[i]);
                     if (temp.exists()) temp.delete();
                     fileItems[i].write(temp);
                 }

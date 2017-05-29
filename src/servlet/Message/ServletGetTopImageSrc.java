@@ -21,7 +21,7 @@ public class ServletGetTopImageSrc extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String[] files = UtilsTopImg.changeDownloadSrc(getServletContext().getInitParameter("serverRoot"));
+        String[] files = UtilsTopImg.getDownloadSrc(getServletContext().getInitParameter("serverRoot"));
         CommonCommunication.sendMessage(response, files);
     }
 }

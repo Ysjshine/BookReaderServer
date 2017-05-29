@@ -21,7 +21,7 @@ public class ServletGetNewsImageSrc extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        String[] files = UtilsNewsImg.changeDownloadSrc(getServletContext().getInitParameter("serverRoot"));
+        String[] files = UtilsNewsImg.getDownloadSrc(getServletContext().getInitParameter("serverRoot"));
         CommonCommunication.sendMessage(response, files);
     }
 }

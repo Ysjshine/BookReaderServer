@@ -23,7 +23,7 @@ public class ServletDownloadNewsImage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
-        File file = new File(getServletContext().getInitParameter("resourceRoot"), UtilsNewsImg.fillNewsTemplate(id));
+        File file = UtilsNewsImg.getRealSrc(getServletContext().getInitParameter("resourceRoot"), id);
         String contentType = getServletContext().getMimeType(file.getAbsolutePath());
         ServiceDownload.downloadFile(response, file, contentType);
     }
