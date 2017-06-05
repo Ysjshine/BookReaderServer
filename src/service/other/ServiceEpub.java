@@ -3,6 +3,7 @@ package service.other;
 import nl.siegmann.epublib.domain.Book;
 import nl.siegmann.epublib.domain.Resource;
 import nl.siegmann.epublib.epub.EpubReader;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -14,7 +15,7 @@ import java.util.List;
  */
 public class ServiceEpub {
     @Nullable
-    public static String getContents(File file, int chapter) {
+    public static String getContents(@NotNull File file, int chapter) {
         String ans = null;
         try {
             Book book = new EpubReader().readEpub(new FileInputStream(file));
@@ -26,7 +27,7 @@ public class ServiceEpub {
         return ans;
     }
 
-    public static int getChapter(File file) {
+    public static int getChapter(@NotNull File file) {
         int ans = -1;
         try {
             Book book = new EpubReader().readEpub(new FileInputStream(file));

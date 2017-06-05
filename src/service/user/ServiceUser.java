@@ -4,10 +4,11 @@ import DAO.UserCategoryDAO;
 import DAO.UserDAO;
 import bean.UserBean;
 import bean.UserCategory;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import utils.SQLUtils;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -15,16 +16,22 @@ import java.sql.SQLException;
  */
 public class ServiceUser {
 
+    @NotNull
     private static SQLUtils sqlUtils = SQLUtils.getInstance();
 
+    @NotNull
     private static UserDAO userDAO = UserDAO.getInstance();
 
+    @NotNull
     private static UserCategoryDAO userCategoryDAO = UserCategoryDAO.getInstance();
 
+    @Nullable
     private static PreparedStatement loginSQL = sqlUtils.getPtmt("select * from Users where account = ? and password = ?");
 
+    @Nullable
     private static PreparedStatement userExistsSQL = sqlUtils.getPtmt("select * from Users where account = ?");
 
+    @Nullable
     private static PreparedStatement getInfoSQL = sqlUtils.getPtmt("select * from Users where account = ?");
 
     public static boolean login(String account, String password) {
@@ -38,7 +45,7 @@ public class ServiceUser {
         }
     }
 
-    public static boolean register(String account, String password, String gender) {
+    public static boolean register(String account, String password, @NotNull String gender) {
         try {
             userExistsSQL.setObject(1, account);
             if (sqlUtils.queryExists(userExistsSQL)) {
@@ -62,25 +69,15 @@ public class ServiceUser {
         }
     }
 
+    @Nullable
     public static UserBean getInfo(String username) {
-        ResultSet rs = null;
-        UserBean userBean = null;
         try {
             getInfoSQL.setObject(1, username);
-            rs = getInfoSQL.executeQuery();
-            userBean = sqlUtils.getBeansFromResultSet(rs, UserBean.class).get(0);
-        } catch (SQLException e) {
+            return sqlUtils.getBeansFromSQL(getInfoSQL, UserBean.class).get(0);
+        } catch (@NotNull SQLException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            return null;
         }
-        return userBean;
     }
 
     public static void updateUserInfo(Integer userID, String newNickName, String newPassword, Integer newGender) {

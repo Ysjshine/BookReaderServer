@@ -1,6 +1,7 @@
 package DAO;
 
 import bean.UserCategory;
+import org.jetbrains.annotations.NotNull;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,10 +19,12 @@ public class UserCategoryDAO extends CommonDAO<UserCategory> {
     private UserCategoryDAO() {
     }
 
+    @NotNull
     static public UserCategoryDAO getInstance() {
         return userCategoryDAO;
     }
 
+    @NotNull
     @Override
     public String getTableName() {
         return tableName;

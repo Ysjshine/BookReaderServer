@@ -1,6 +1,7 @@
 package DAO;
 
 import bean.CommentBean;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by dream on 17-5-1.
@@ -14,10 +15,12 @@ public class CommentDAO extends CommonDAO<CommentBean> {
     private CommentDAO() {
     }
 
+    @NotNull
     static public CommentDAO getInstance() {
         return commentDAO;
     }
 
+    @NotNull
     @Override
     public String getTableName() {
         return tableName;

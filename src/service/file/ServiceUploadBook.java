@@ -6,6 +6,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.jetbrains.annotations.NotNull;
 import service.utils.UtilsBook;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +20,6 @@ import java.util.List;
 public class ServiceUploadBook {
 
     public static boolean uploadBook(HttpServletRequest request, String resRoot) {
-        boolean ans = false;
         try {
             BookBean book = new BookBean();
             FileItem[] bookFileItems = setInfo(request, resRoot, book);
@@ -28,17 +28,17 @@ public class ServiceUploadBook {
                 String[] trueSources = UtilsBook.getRealSrc(book.BookID);
                 bookFileItems[0].write(new File(resRoot, trueSources[0]));
                 bookFileItems[1].write(new File(resRoot, trueSources[1]));
-                ans = true;
+                return true;
             }
-        } catch (UnsupportedEncodingException | FileUploadException e) {
-            e.printStackTrace();
+            return false;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return ans;
     }
 
-    private static FileItem[] setInfo(HttpServletRequest request, String resRoot, BookBean book) throws UnsupportedEncodingException, FileUploadException {
+    @NotNull
+    private static FileItem[] setInfo(HttpServletRequest request, String resRoot, @NotNull BookBean book) throws UnsupportedEncodingException, FileUploadException {
         //request.setCharacterEncoding("UTF-8");在本例中不设置可以成功上传中文文件名的文件，
         //倘若之后发现不行可以尝试
         //至于表单域，需要request getString联合设置

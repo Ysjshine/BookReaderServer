@@ -1,6 +1,7 @@
 package DAO;
 
 import bean.BookBean;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Created by dream on 17-5-1.
@@ -14,10 +15,12 @@ public class BookDAO extends CommonDAO<BookBean> {
     private BookDAO() {
     }
 
+    @NotNull
     static public BookDAO getInstance() {
         return bookDAO;
     }
 
+    @NotNull
     @Override
     public String getTableName() {
         return tableName;

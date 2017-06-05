@@ -2,6 +2,8 @@ package utils;
 
 import bean.CommonBean;
 import com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.sql.PooledConnection;
 import java.lang.reflect.Field;
@@ -22,10 +24,13 @@ public class SQLUtils {
     private static final String autoReconnect = "true";
     private static final String driver = "com.mysql.jdbc.Driver";
     private static final int portNumber = 3306;
-    private static SQLUtils sqlUtils;
+    @NotNull
+    private static SQLUtils sqlUtils = new SQLUtils();
 
+    @NotNull
     private Properties prop = new Properties();
 
+    @Nullable
     private Connection ownConnection;
 
     private SQLUtils() {
@@ -35,52 +40,47 @@ public class SQLUtils {
         ownConnection = getConnectionByDriverManager();
     }
 
+    @Nullable
     private Connection getConnectionByDriverManager() {
-        try {
-            Class.forName(driver); //jdbc4.0之后不需要
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        System.out.println("Connected to database");
         Connection conn = null;
         try {
+            Class.forName(driver); //jdbc4.0之后不需要
             conn = DriverManager.getConnection("jdbc:" + dbms + "://" + serverName + ":" + portNumber + "/" + dbName, prop);
-        } catch (SQLException e) {
+            System.out.println("Connected to database");
+        } catch (@NotNull SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
         return conn;
     }
 
+    @NotNull
     public static SQLUtils getInstance() {
-        if (sqlUtils == null) {
-            sqlUtils = new SQLUtils();
-        }
         return sqlUtils;
     }
 
-    public void createTable(String tableName, String tableAttributes) {
+    public void createTable(String tableName, String tableAttributes) throws SQLException {
         String sql = "CREATE TABLE " + tableName + tableAttributes;
         try (PreparedStatement stmt = ownConnection.prepareStatement(sql)) {
             stmt.executeUpdate(sql);
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
     }
 
+    @Nullable
     public Connection getOwnConnection() {
         return ownConnection;
     }
 
+    @Nullable
     public PreparedStatement getPtmt(String sql) {
         try {
             return ownConnection.prepareStatement(sql);
         } catch (SQLException e) {
             e.printStackTrace();
-            return null;
         }
+        return null;
     }
 
-    public boolean insertBeanToDB(String sql, CommonBean bean, List<Field> insert) {
+    public boolean insertBeanToDB(String sql, @NotNull CommonBean bean, @NotNull List<Field> insert) {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         try {
@@ -108,7 +108,7 @@ public class SQLUtils {
                 }
             }
             return true;
-        } catch (SQLException | IllegalAccessException e) {
+        } catch (@NotNull SQLException | IllegalAccessException e) {
             e.printStackTrace();
         } finally {
             try {
@@ -125,7 +125,7 @@ public class SQLUtils {
         return false;
     }
 
-    public boolean updateBeanInDB(String sql, CommonBean bean, List<Field> update) {
+    public boolean updateBeanInDB(String sql, @NotNull CommonBean bean, @NotNull List<Field> update) {
         try (PreparedStatement stmt = ownConnection.prepareStatement(sql)) {
             int i = 1;
             for (Field field : update) {
@@ -143,7 +143,7 @@ public class SQLUtils {
         return false;
     }
 
-    public boolean queryExists(PreparedStatement stmt) {
+    public boolean queryExists(@NotNull PreparedStatement stmt) {
         ResultSet resultSet = null;
         try {
             resultSet = stmt.executeQuery();
@@ -162,7 +162,7 @@ public class SQLUtils {
         }
     }
 
-    public void populateDBbyBean(ResultSet rs, Object bean) throws SQLException, IllegalAccessException, InstantiationException {
+    public void populateDBbyBean(@NotNull ResultSet rs, @NotNull Object bean) throws SQLException, IllegalAccessException, InstantiationException {
         rs.moveToInsertRow();
         Class beanClass = bean.getClass();
         Field[] fields = beanClass.getFields();
@@ -173,30 +173,23 @@ public class SQLUtils {
         rs.beforeFirst();
     }
 
-    public <T> List<T> getBeansFromDB(String tableName, Class<T> beanClass) {
+    @NotNull
+    public <T> List<T> getBeansFromDB(String tableName, @NotNull Class<T> beanClass) throws SQLException, InstantiationException, IllegalAccessException {
         PreparedStatement stmt = null;
-        ResultSet rs = null;
-        List<T> list = null;
         try {
             stmt = ownConnection.prepareStatement("SELECT * FROM " + tableName);
-            rs = stmt.executeQuery();
-            list = getBeansFromResultSet(rs, beanClass);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            return getBeansFromSQL(stmt, beanClass);
         } finally {
             try {
-                if (rs != null) rs.close();
                 if (stmt != null) stmt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         }
-        return list;
     }
 
-    public <T> List<T> getBeansFromResultSet(ResultSet rs, Class<T> clazz) {
-        List<T> list = new ArrayList<>();
-        try {
+    @NotNull
+    public <T> List<T> getBeansFromSQL(@NotNull PreparedStatement sql, @NotNull Class<T> clazz) throws SQLException, IllegalAccessException, InstantiationException {
 //            List<Field> temp = new ArrayList<>();
 //            Class<?> clazz = clazz;
 //            while (clazz != Object.class) {
@@ -205,6 +198,8 @@ public class SQLUtils {
 //            }
 //            Field[] fields = new Field[temp.size()];
 //            temp.toArray(fields);
+        try (ResultSet rs = sql.executeQuery()) {
+            List<T> list = new ArrayList<>();
             Field[] fields = clazz.getFields();
             ResultSetMetaData rsmd = rs.getMetaData();
             int cols = rsmd.getColumnCount();
@@ -214,17 +209,15 @@ public class SQLUtils {
                 fill(rs, bean, fields, rsmd, cols);
                 list.add(bean);
             }
-        } catch (SQLException | IllegalAccessException | InstantiationException e) {
-            e.printStackTrace();
+            return list;
         }
-        return list;
     }
 
     //    boolean flag = field.isAccessible();
     //    field.setAccessible(true);
     //    field.set(bean, rs.getObject(i));
     //    field.setAccessible(flag);
-    private <T> void fill(ResultSet rs, T bean, Field[] fields, ResultSetMetaData rsmd, int cols) throws SQLException, IllegalAccessException {
+    private <T> void fill(@NotNull ResultSet rs, T bean, @NotNull Field[] fields, @NotNull ResultSetMetaData rsmd, int cols) throws SQLException, IllegalAccessException {
         for (int i = 1; i <= cols; i++) {
             for (Field field : fields) {
                 if (field.getName().equalsIgnoreCase(rsmd.getColumnName(i))) {

@@ -1,5 +1,6 @@
 package service.message;
 
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import service.utils.PosBean;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * Created by dream on 17-5-28.
  */
 public class SendPos {
-    public static void send(HttpServletResponse response, @Nullable List<PosBean> beans, Integer size) throws IOException {
+    public static void send(@NotNull HttpServletResponse response, @Nullable List<PosBean> beans, Integer size) throws IOException {
         response.setContentType("application/octet-stream");
         OutputStream outputStream = response.getOutputStream();
         ObjectOutputStream oos = new ObjectOutputStream(outputStream);

@@ -6,6 +6,7 @@ import utils.SQLUtils;
 
 import java.lang.reflect.Field;
 import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public abstract class CommonDAO<T extends CommonBean> {
     }
 
     @NotNull
-    public final List<T> getBeansFromDB(T leader) {
+    public final List<T> getBeansFromDB(@NotNull T leader) throws IllegalAccessException, SQLException, InstantiationException {
         List<T> list = sqlUtils.getBeansFromDB(getTableName(), (Class<T>) leader.getClass());
         list.add(0, leader);
         return list;
@@ -33,14 +34,15 @@ public abstract class CommonDAO<T extends CommonBean> {
 
     abstract public void createTable(T bean);
 
-    public boolean insertBeanToDB(T bean) {
+    public boolean insertBeanToDB(@NotNull T bean) {
         ArrayList<Field> insertFields = getFields(bean);
         String sql = getInsertSql(bean, insertFields);
         System.out.println(sql);
         return sqlUtils.insertBeanToDB(sql, bean, insertFields);
     }
 
-    private ArrayList<Field> getFields(T bean) {
+    @NotNull
+    private ArrayList<Field> getFields(@NotNull T bean) {
         Field[] fields = bean.getClass().getDeclaredFields();
         ArrayList<Field> updateFields = new ArrayList<>();
         try {
@@ -58,7 +60,7 @@ public abstract class CommonDAO<T extends CommonBean> {
         return updateFields;
     }
 
-    private String getInsertSql(T bean, List<Field> insertFields) {
+    private String getInsertSql(@NotNull T bean, @NotNull List<Field> insertFields) {
         StringBuilder sql = new StringBuilder("INSERT INTO ").append(getTableName());
         StringBuilder attributes = new StringBuilder();
         StringBuilder values = new StringBuilder();
@@ -75,14 +77,14 @@ public abstract class CommonDAO<T extends CommonBean> {
         return sql.toString();
     }
 
-    public boolean updateBeanInDB(T bean) {
+    public boolean updateBeanInDB(@NotNull T bean) {
         ArrayList<Field> updateFields = getFields(bean);
         String sql = getUpdateSql(bean, updateFields);
         System.out.println(sql);
         return sqlUtils.updateBeanInDB(sql, bean, updateFields);
     }
 
-    private String getUpdateSql(T bean, List<Field> updateFields) {
+    private String getUpdateSql(@NotNull T bean, @NotNull List<Field> updateFields) {
         StringBuilder sql = new StringBuilder("UPDATE ").append(getTableName()).append(" SET ");
         for (Field field : updateFields) {
             sql.append(field.getName()).append(" = ?, ");

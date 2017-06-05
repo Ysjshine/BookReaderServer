@@ -4,6 +4,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.jetbrains.annotations.NotNull;
 import utils.UploadUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -16,8 +17,7 @@ import java.util.List;
  */
 public class ServiceUploadImage {
 
-    public static boolean uploadImage(HttpServletRequest request, String resRoot, String template, String[] values) {
-        boolean ans = false;
+    public static boolean uploadImage(HttpServletRequest request, @NotNull String resRoot, @NotNull String template, String[] values) {
         try {
             List<FileItem> fileItems = getItems(request, resRoot, values);
             for (FileItem fileItem : fileItems) {
@@ -28,11 +28,11 @@ public class ServiceUploadImage {
                     fileItem.write(temp);
                 }
             }
-            ans = true;
+            return true;
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
         }
-        return ans;
     }
 
     private static List<FileItem> getItems(HttpServletRequest request, String resRoot, String[] values) throws UnsupportedEncodingException, FileUploadException {

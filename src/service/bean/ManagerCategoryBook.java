@@ -3,10 +3,11 @@ package service.bean;
 import DAO.CategoryBookDAO;
 import bean.BookBean;
 import bean.CategoryBook;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import utils.SQLUtils;
 
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -14,11 +15,14 @@ import java.util.List;
  * Created by dream on 17-5-25.
  */
 public class ManagerCategoryBook {
+    @NotNull
     static private SQLUtils sqlUtils = SQLUtils.getInstance();
 
+    @Nullable
     private static PreparedStatement delCategoryBookSQL = sqlUtils.getPtmt(
             "delete from CategoryBooks where UserID = ? and CategoryID = ? and BookID = ?");
 
+    @Nullable
     private static PreparedStatement queryCategoryBookSQL = sqlUtils.getPtmt(
             "select Books.* " +
                     "from Books join (select BookID from CategoryBooks where UserID = ? and CategoryID = ?) as tempBooks " +
@@ -33,37 +37,26 @@ public class ManagerCategoryBook {
     }
 
     public static boolean delCategoryBook(int uid, int cid, int bid) {
-        boolean ans = false;
         try {
             delCategoryBookSQL.setObject(1, uid);
             delCategoryBookSQL.setObject(2, cid);
             delCategoryBookSQL.setObject(3, bid);
-            ans = delCategoryBookSQL.executeUpdate() > 0;
+            return delCategoryBookSQL.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return ans;
     }
 
+    @Nullable
     public static List<BookBean> queryCategoryBook(int uid, int cid) {
-        ResultSet rs = null;
-        List<BookBean> bookBeans = null;
         try {
             queryCategoryBookSQL.setObject(1, uid);
             queryCategoryBookSQL.setObject(2, cid);
-            rs = queryCategoryBookSQL.executeQuery();
-            bookBeans = sqlUtils.getBeansFromResultSet(rs, BookBean.class);
-        } catch (SQLException e) {
+            return sqlUtils.getBeansFromSQL(queryCategoryBookSQL, BookBean.class);
+        } catch (@NotNull SQLException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
-        } finally {
-            if (rs != null) {
-                try {
-                    rs.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
+            return null;
         }
-        return bookBeans;
     }
 }

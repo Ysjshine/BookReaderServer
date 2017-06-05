@@ -2,6 +2,8 @@ package service.bean;
 
 import DAO.UserCategoryDAO;
 import bean.UserCategory;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import utils.SQLUtils;
 
 import java.sql.PreparedStatement;
@@ -12,8 +14,10 @@ import java.sql.SQLException;
  */
 public class ManagerCategory {
 
+    @NotNull
     static private SQLUtils sqlUtils = SQLUtils.getInstance();
 
+    @Nullable
     private static PreparedStatement delUserCategory = sqlUtils.getPtmt(
             "delete from UserCategories where UserID = ? and CategoryID = ?");
 
@@ -27,14 +31,13 @@ public class ManagerCategory {
     }
 
     public static boolean delCategory(int uid, int cid) {
-        boolean ans = false;
         try {
             delUserCategory.setObject(1, uid);
             delUserCategory.setObject(2, cid);
-            ans = delUserCategory.executeUpdate() > 0;
+            return delUserCategory.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
+            return false;
         }
-        return ans;
     }
 }

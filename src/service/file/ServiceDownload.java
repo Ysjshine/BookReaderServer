@@ -1,5 +1,8 @@
 package service.file;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 
@@ -7,7 +10,7 @@ import java.io.*;
  * Created by dream on 17-5-25.
  */
 public class ServiceDownload {
-    public static void downloadFile(HttpServletResponse response, File f, String contentType) {
+    public static void downloadFile(@NotNull HttpServletResponse response, @NotNull File f, @Nullable String contentType) {
         if (f.exists()) {
             if (contentType == null)
                 contentType = "application/octet-stream";
