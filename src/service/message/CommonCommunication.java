@@ -48,7 +48,7 @@ public class CommonCommunication {
     }
 
     public static void sendMessage(HttpServletResponse response, String str) throws IOException {
-        response.setContentType("application/octet-stream");
+//        response.setContentType("application/octet-stream");
         OutputStream outputStream = response.getOutputStream();
         outputStream.write(str.getBytes());
         outputStream.close();
