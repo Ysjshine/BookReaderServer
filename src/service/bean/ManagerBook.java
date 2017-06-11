@@ -1,5 +1,6 @@
 package service.bean;
 
+import DAO.BookDAO;
 import bean.BookBean;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -30,6 +31,10 @@ public class ManagerBook {
             "select * from Books where type = ?");
 
     @Nullable
+    private static PreparedStatement delBookSQL = sqlUtils.getPtmt(
+            "delete from Books where BookID = ?");
+
+    @Nullable
     public static List<BookBean> queryBookByName(String bookName) {
         try {
             queryBookByNameSQL.setObject(1, "%" + bookName + "%");
@@ -58,6 +63,28 @@ public class ManagerBook {
         } catch (@NotNull SQLException | IllegalAccessException | InstantiationException e) {
             e.printStackTrace();
             return null;
+        }
+    }
+
+    @Nullable
+    public static List<BookBean> queryBookAll() {
+        try {
+            List<BookBean> beansFromDB = BookDAO.getInstance().getBeansFromDB(new BookBean());
+            beansFromDB.remove(0);
+            return beansFromDB;
+        } catch (IllegalAccessException | SQLException | InstantiationException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public static boolean delBook(int bid) {
+        try {
+            delBookSQL.setObject(1, bid);
+            return delBookSQL.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false;
         }
     }
 }
