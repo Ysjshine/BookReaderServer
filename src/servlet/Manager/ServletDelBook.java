@@ -2,6 +2,7 @@ package servlet.Manager;
 
 import service.bean.ManagerBook;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -22,6 +23,8 @@ public class ServletDelBook extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         int bid = Integer.parseInt(request.getParameter("bid"));
         boolean ans = ManagerBook.delBook(bid);
-        response.sendRedirect("/QueryBookAll");
+        request.setAttribute("ans", ans);
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("showDelAns.jsp");
+        requestDispatcher.forward(request, response);
     }
 }

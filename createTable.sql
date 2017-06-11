@@ -37,8 +37,10 @@ CREATE TABLE CategoryBooks (
   CategoryID INT NOT NULL,
   BookID     INT NOT NULL,
   UNIQUE (UserID, CategoryID, BookID),
-  FOREIGN KEY (UserID, CategoryID) REFERENCES UserCategories (UserID, CategoryID)
+  FOREIGN KEY (UserID, CategoryID) REFERENCES UserCategories (UserID, CategoryID),
+  FOREIGN KEY (BookID) REFERENCES Books (BookID)
 );
+
 
 CREATE TABLE Comments (
   CommentID INT PRIMARY KEY AUTO_INCREMENT,
